@@ -5,6 +5,7 @@ function generatepass(){
     $letters ='qwertyuiopasdfghjklzxcvbnm';
     $upletters = strtoupper($letters);
     $numbers = '0123456789';
+    
     if(isset($_GET['Passlength'])){
         $Passlength= $_GET['Passlength'];
         $NewPass =''; 
@@ -15,8 +16,11 @@ function generatepass(){
                 $NewPass .= $newChar;
             }
         }
+        $_SESSION['password'] = $NewPass;
+        header('Location: index.php');
+        die();
     }
-     return $NewPass;
+     return false;
     }
 
 ?>
