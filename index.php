@@ -6,15 +6,19 @@ $upletters = strtoupper($letters);
 $numbers = '0123456789';
 if(isset($_GET['Passlength'])){
     $Passlength= $_GET['Passlength'];
-    $NewPass ='';
+    $NewPass =''; 
     while (strlen($NewPass)< $Passlength){
         $valoridisponibili= $symbols.$letters.$upletters.$numbers;
-        
+        $newChar = $valoridisponibili[rand(0,strlen($valoridisponibili)-1)];
+        if (!strpos($NewPass,$newChar)){
+            $NewPass .= $newChar;
+        }
     }
 }
+ return $NewPass;
 }
 
-generatepass();
+$NewPass = generatepass();
 ?>
 
 <!DOCTYPE html>
@@ -26,14 +30,17 @@ generatepass();
     <title>Strong password generator</title>
 </head>
 <body>
- <main  class="container">
+ <main  class="container bg-info text-center">
     <div class='m-auto '>
         <h1 class="m-auto mb-4">Password Generator</h1>
-        <div class='d-flex'>
+        <div class='d-flex justify-content-center'>
             <form action="<?php echo $_SERVER['PHP-SELF']?>"  method="GET">
                 <input type="number" min='6' max='20' name="Passlength">
-                <button class="btn" type="submit">filtra</button>
+                <button class="btn" type="submit">Genera</button>
             </form>
+        </div>
+        <div>
+            <?php echo $NewPass ?>
         </div>
     </div>
 
